@@ -55,7 +55,7 @@ public class ConfederacionController {
 	private DefaultComboBoxModel<ContinenteItem> construirModeloContinentes() {
 		DefaultComboBoxModel<ContinenteItem> modelo = new DefaultComboBoxModel<>();
 		try {
-			List<Continente> continentes = continenteService.obtenerTodos();
+			List<Continente> continentes = continenteService.obtenerTodosConEstadoActivo();
 			for (Continente c : continentes) {
 				modelo.addElement(new ContinenteItem(c.getIdContinente(), c.getNombre()));
 			}

@@ -51,6 +51,17 @@ public class ContinenteService {
     }
 
     /**
+     * Obtiene la lista completa de continentes para cargar en la tabla del ERP.
+     */
+    public List<Continente> obtenerTodosConEstadoActivo() {
+        try {
+            return ((ContinenteRepository) repository).listarTodosConEstadoActivo();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de continentes en este momento.", e);
+        }
+    }
+
+    /**
      * Busca un continente por su ID.
      */
     public Continente buscarPorId(Integer id) {

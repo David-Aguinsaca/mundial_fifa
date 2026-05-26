@@ -9,6 +9,7 @@ public class MainLayout extends JFrame {
     private JPanel panelCentralDinamico;
     private BotonSidebar btnContinentes;
     private BotonSidebar btnConfederacion;
+    private BotonSidebar btnMundiales;
 
     public MainLayout() {
         setTitle("ERP - Sistema de Gestión Mundial FIFA");
@@ -32,9 +33,11 @@ public class MainLayout extends JFrame {
         // Instanciamos el componente personalizado
         btnContinentes = new BotonSidebar("Continentes");
         btnConfederacion = new BotonSidebar("Confederación");
+        btnMundiales = new BotonSidebar("Mundiales");
 
         sidebar.add(btnContinentes);
         sidebar.add(btnConfederacion);
+        sidebar.add(btnMundiales);
 
 
         add(sidebar, BorderLayout.WEST);
@@ -57,4 +60,5 @@ public class MainLayout extends JFrame {
     // Getters para que el controlador pueda escuchar los clics del menú lateral si lo requieres
     public BotonSidebar getBtnContinentes() { return btnContinentes; }
     public BotonSidebar getBtnConfederacion() { return btnConfederacion; }
+    public BotonSidebar getBtnMundiales() { return btnMundiales; }
 }

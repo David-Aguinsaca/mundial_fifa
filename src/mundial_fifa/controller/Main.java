@@ -1,12 +1,12 @@
 package mundial_fifa.controller;
 
-import java.awt.event.ActionListener;
-
 import mundial_fifa.model.service.ConfederacionService;
 import mundial_fifa.model.service.ContinenteService;
+import mundial_fifa.model.service.MundialService;
 import mundial_fifa.view.MainLayout;
 import mundial_fifa.view.component.ConfederacionPanel;
 import mundial_fifa.view.component.ContinentePanel;
+import mundial_fifa.view.component.MundialPanel;
 
 public class Main {
 
@@ -19,8 +19,12 @@ public class Main {
     ConfederacionPanel moduloConfederacion = new ConfederacionPanel();
     ConfederacionService confederacionService = new ConfederacionService();
 
+    MundialPanel moduloMundiales = new MundialPanel();
+    MundialService mundialService = new MundialService();
+
     new ContinenteController(moduloContinente, continenteService);
     new ConfederacionController(moduloConfederacion, confederacionService, continenteService);
+    new MundialController(moduloMundiales, mundialService);
 
     ventanaPrincipal.setModuloPanel(moduloContinente);
 
@@ -30,6 +34,10 @@ public class Main {
 
     ventanaPrincipal.getBtnConfederacion().addActionListener(e -> {
       ventanaPrincipal.setModuloPanel(moduloConfederacion);
+    });
+
+    ventanaPrincipal.getBtnMundiales().addActionListener(e -> {
+      ventanaPrincipal.setModuloPanel(moduloMundiales);
     });
 
     ventanaPrincipal.setVisible(true);
