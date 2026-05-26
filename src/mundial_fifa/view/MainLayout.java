@@ -9,6 +9,9 @@ public class MainLayout extends JFrame {
     private JPanel panelCentralDinamico;
     private BotonSidebar btnContinentes;
     private BotonSidebar btnConfederacion;
+    private BotonSidebar btnSelecciones;
+    private BotonSidebar btnPartidos;
+    private BotonSidebar btnEstadisticas;
     private BotonSidebar btnMundiales;
 
     public MainLayout() {
@@ -33,10 +36,16 @@ public class MainLayout extends JFrame {
         // Instanciamos el componente personalizado
         btnContinentes = new BotonSidebar("Continentes");
         btnConfederacion = new BotonSidebar("Confederación");
+        btnSelecciones = new BotonSidebar("Selecciones");
+        btnPartidos = new BotonSidebar("Partidos");
+        btnEstadisticas = new BotonSidebar("Estadísticas");
         btnMundiales = new BotonSidebar("Mundiales");
 
         sidebar.add(btnContinentes);
         sidebar.add(btnConfederacion);
+        sidebar.add(btnSelecciones);
+        sidebar.add(btnPartidos);
+        sidebar.add(btnEstadisticas);
         sidebar.add(btnMundiales);
 
 
@@ -60,5 +69,8 @@ public class MainLayout extends JFrame {
     // Getters para que el controlador pueda escuchar los clics del menú lateral si lo requieres
     public BotonSidebar getBtnContinentes() { return btnContinentes; }
     public BotonSidebar getBtnConfederacion() { return btnConfederacion; }
+    public BotonSidebar getBtnSelecciones() { return btnSelecciones; }
+    public BotonSidebar getBtnPartidos() { return btnPartidos; }
+    public BotonSidebar getBtnEstadisticas() { return btnEstadisticas; }
     public BotonSidebar getBtnMundiales() { return btnMundiales; }
 }

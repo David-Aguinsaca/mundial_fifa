@@ -46,6 +46,14 @@ public class ConfederacionService {
         }
     }
 
+    public List<Confederacion> obtenerTodosConEstadoActivo() {
+        try {
+            return ((ConfedaracionRepository) repository).listarTodosConEstadoActivo();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de confederaciones activas en este momento.", e);
+        }
+    }
+
     public Confederacion buscarPorId(Integer id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("El ID proporcionado no es válido.");

@@ -2,7 +2,7 @@ package mundial_fifa.model.entity;
 
 import java.math.BigDecimal;
 
-public class EstadisticasPartidoEquipo {
+public class EstadisticasPartidoEquipo extends Base {
 
     private Integer idEstadistica;
     private Integer idPartido;
@@ -15,16 +15,10 @@ public class EstadisticasPartidoEquipo {
     private BigDecimal precisionPasesPorcentaje;
     private int fueraDeJuego;
     private int salvadasPortero;
+    private Partido partido;
+    private Seleccion seleccion;
 
     public EstadisticasPartidoEquipo() {
-    }
-
-    public EstadisticasPartidoEquipo(Integer idPartido, Integer idSeleccion,
-                                     BigDecimal posesionPorcentaje, BigDecimal precisionPasesPorcentaje) {
-        this.idPartido = idPartido;
-        this.idSeleccion = idSeleccion;
-        this.posesionPorcentaje = posesionPorcentaje;
-        this.precisionPasesPorcentaje = precisionPasesPorcentaje;
     }
 
     public Integer getIdEstadistica() {
@@ -113,6 +107,22 @@ public class EstadisticasPartidoEquipo {
 
     public void setSalvadasPortero(int salvadasPortero) {
         this.salvadasPortero = salvadasPortero;
+    }
+
+    public Partido getPartido() {
+        return partido;
+    }
+
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
     }
 
     @Override

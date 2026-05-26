@@ -1,10 +1,11 @@
 package mundial_fifa.model.entity;
 
-public class Seleccion {
+public class Seleccion extends Base {
 
     private Integer idSeleccion;
     private String nombre;
     private Integer idConfederacion;
+    private Confederacion confederacion;
 
     public Seleccion() {
     }
@@ -42,6 +43,14 @@ public class Seleccion {
 
     public void setIdConfederacion(Integer idConfederacion) {
         this.idConfederacion = idConfederacion;
+    }
+
+    public Confederacion getConfederacion() {
+        return confederacion;
+    }
+
+    public void setConfederacion(Confederacion confederacion) {
+        this.confederacion = confederacion;
     }
 
     @Override

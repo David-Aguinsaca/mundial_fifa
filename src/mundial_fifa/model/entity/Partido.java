@@ -2,7 +2,7 @@ package mundial_fifa.model.entity;
 
 import java.time.LocalDate;
 
-public class Partido {
+public class Partido extends Base {
 
     private Integer idPartido;
     private Integer idMundial;
@@ -12,21 +12,11 @@ public class Partido {
     private Integer idSeleccionVisitante;
     private int golesLocal;
     private int golesVisitante;
+    private Mundial mundial;
+    private Seleccion seleccionLocal;
+    private Seleccion seleccionVisitante;
 
     public Partido() {
-    }
-
-    public Partido(Integer idPartido, Integer idMundial, LocalDate fecha, String fase,
-                   Integer idSeleccionLocal, Integer idSeleccionVisitante,
-                   int golesLocal, int golesVisitante) {
-        this.idPartido = idPartido;
-        this.idMundial = idMundial;
-        this.fecha = fecha;
-        this.fase = fase;
-        this.idSeleccionLocal = idSeleccionLocal;
-        this.idSeleccionVisitante = idSeleccionVisitante;
-        this.golesLocal = golesLocal;
-        this.golesVisitante = golesVisitante;
     }
 
     public Integer getIdPartido() {
@@ -91,6 +81,30 @@ public class Partido {
 
     public void setGolesVisitante(int golesVisitante) {
         this.golesVisitante = golesVisitante;
+    }
+
+    public Mundial getMundial() {
+        return mundial;
+    }
+
+    public void setMundial(Mundial mundial) {
+        this.mundial = mundial;
+    }
+
+    public Seleccion getSeleccionLocal() {
+        return seleccionLocal;
+    }
+
+    public void setSeleccionLocal(Seleccion seleccionLocal) {
+        this.seleccionLocal = seleccionLocal;
+    }
+
+    public Seleccion getSeleccionVisitante() {
+        return seleccionVisitante;
+    }
+
+    public void setSeleccionVisitante(Seleccion seleccionVisitante) {
+        this.seleccionVisitante = seleccionVisitante;
     }
 
     @Override

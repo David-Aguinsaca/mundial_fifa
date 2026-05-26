@@ -163,4 +163,42 @@ public class ConfedaracionRepository implements GenericRepository<Confederacion,
     return entidad;
   }
 
+  public List<Confederacion> listarTodosConEstadoActivo() {
+    String sql = "SELECT c.*, " +
+            "c2.nombre AS nombre_continente " +
+            "FROM mundial_fifa.confederacion c " +
+            "INNER JOIN mundial_fifa.continente c2 ON c.id_continente = c2.id_continente " +
+            "WHERE c.estado = true " +
+            "ORDER BY c.fecha_creacion DESC";
+
+    List<Confederacion> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery()) {
+
+      while (rs.next()) {
+        Confederacion entidad = new Confederacion();
+        entidad.setIdConfederacion(rs.getInt("id_confederacion"));
+        entidad.setNombre(rs.getString("nombre"));
+        entidad.setSiglas(rs.getString("siglas"));
+        entidad.setEstado(rs.getBoolean("estado"));
+        entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+        entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+        entidad.setIdContinente(rs.getInt("id_continente"));
+
+        Continente continente = new Continente();
+        continente.setNombre(rs.getString("nombre_continente"));
+        continente.setIdContinente(rs.getInt("id_continente"));
+
+        entidad.setContinente(continente);
+
+        lista.add(entidad);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar confederaciones activas: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener la lista de confederaciones activas.", e);
+    }
+
+    return lista;
+  }
 }
