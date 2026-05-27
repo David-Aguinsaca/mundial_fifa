@@ -13,6 +13,7 @@ public class MainLayout extends JFrame {
     private BotonSidebar btnPartidos;
     private BotonSidebar btnEstadisticas;
     private BotonSidebar btnMundiales;
+    private BotonSidebar btnDashboard;
 
     public MainLayout() {
         setTitle("ERP - Sistema de Gestión Mundial FIFA");
@@ -25,7 +26,7 @@ public class MainLayout extends JFrame {
         JPanel sidebar = new JPanel();
         sidebar.setBackground(new Color(43, 54, 66));
         sidebar.setPreferredSize(new Dimension(220, getHeight()));
-        sidebar.setLayout(new GridLayout(7, 1, 0, 5));
+        sidebar.setLayout(new GridLayout(8, 1, 0, 5));
         sidebar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel lblModulo = new JLabel("MUNDIAL FIFA", SwingConstants.CENTER);
@@ -34,6 +35,7 @@ public class MainLayout extends JFrame {
         sidebar.add(lblModulo);
 
         // Instanciamos el componente personalizado
+        btnDashboard = new BotonSidebar("Dashboard");
         btnContinentes = new BotonSidebar("Continentes");
         btnConfederacion = new BotonSidebar("Confederación");
         btnSelecciones = new BotonSidebar("Selecciones");
@@ -41,6 +43,7 @@ public class MainLayout extends JFrame {
         btnEstadisticas = new BotonSidebar("Estadísticas");
         btnMundiales = new BotonSidebar("Mundiales");
 
+        sidebar.add(btnDashboard);
         sidebar.add(btnContinentes);
         sidebar.add(btnConfederacion);
         sidebar.add(btnSelecciones);
@@ -73,4 +76,5 @@ public class MainLayout extends JFrame {
     public BotonSidebar getBtnPartidos() { return btnPartidos; }
     public BotonSidebar getBtnEstadisticas() { return btnEstadisticas; }
     public BotonSidebar getBtnMundiales() { return btnMundiales; }
+    public BotonSidebar getBtnDashboard() { return btnDashboard; }
 }

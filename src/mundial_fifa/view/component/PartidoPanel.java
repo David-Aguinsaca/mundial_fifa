@@ -90,9 +90,10 @@ public class PartidoPanel extends JPanel {
 
     public Partido mostrarModalFormulario(Partido objetivo,
                                           DefaultComboBoxModel<?> mundialModelo,
-                                          DefaultComboBoxModel<?> seleccionModelo) {
+                                          DefaultComboBoxModel<?> seleccionLocalModelo,
+                                          DefaultComboBoxModel<?> seleccionVisitanteModelo) {
         Window ventanaPadre = SwingUtilities.getWindowAncestor(this);
-        PartidoFormDialog modal = new PartidoFormDialog((Frame) ventanaPadre, objetivo, mundialModelo, seleccionModelo);
+        PartidoFormDialog modal = new PartidoFormDialog((Frame) ventanaPadre, objetivo, mundialModelo, seleccionLocalModelo, seleccionVisitanteModelo);
         modal.setVisible(true);
         return modal.getPartidoProcesado();
     }

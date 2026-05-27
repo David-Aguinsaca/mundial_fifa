@@ -46,6 +46,18 @@ public class PartidoService {
         }
     }
 
+    public List<Partido> obtenerPorMundial(Integer idMundial) {
+        if (idMundial == null || idMundial <= 0) {
+            throw new IllegalArgumentException("El ID del mundial no es válido.");
+        }
+
+        try {
+            return ((PartidoRepository) repository).listarPorMundial(idMundial);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de partidos para este mundial.", e);
+        }
+    }
+
     public List<Partido> obtenerTodos() {
         try {
             return repository.listarTodos();

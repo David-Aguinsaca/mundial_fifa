@@ -59,8 +59,10 @@ public class ContinenteRepository implements GenericRepository<Continente, Integ
   @Override
   public List<Continente> listarTodos() {
     String sql = "SELECT * FROM mundial_fifa.continente ORDER BY fecha_creacion DESC";
+   
     List<Continente> lista = new ArrayList<>();
 
+    // consulta a la base de datos
     try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
         ResultSet rs = stmt.executeQuery()) { // Como no lleva '?', podemos ejecutar directamente
 

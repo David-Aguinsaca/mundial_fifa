@@ -154,6 +154,61 @@ public class EstadisticasPartidoEquipoRepository implements GenericRepository<Es
     }
   }
 
+  public List<EstadisticasPartidoEquipo> listarPorPartido(Integer idPartido) {
+    String sql = "SELECT e.*, " +
+            "p.fecha AS partido_fecha, p.fase AS partido_fase, " +
+            "s.nombre AS nombre_seleccion " +
+            "FROM mundial_fifa.estadistica_partido_equipo e " +
+            "INNER JOIN mundial_fifa.partido p ON e.id_partido = p.id_partido " +
+            "INNER JOIN mundial_fifa.seleccion s ON e.id_seleccion = s.id_seleccion " +
+            "WHERE e.id_partido = ? " +
+            "ORDER BY e.id_estadistica";
+
+    List<EstadisticasPartidoEquipo> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+      stmt.setInt(1, idPartido);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+          EstadisticasPartidoEquipo entidad = new EstadisticasPartidoEquipo();
+          entidad.setIdEstadistica(rs.getInt("id_estadistica"));
+          entidad.setIdPartido(rs.getInt("id_partido"));
+          entidad.setIdSeleccion(rs.getInt("id_seleccion"));
+          entidad.setPosesionPorcentaje(rs.getBigDecimal("posesion_porcentaje"));
+          entidad.setTirosAlArco(rs.getInt("tiros_al_arco"));
+          entidad.setTirosEsquina(rs.getInt("tiros_esquina"));
+          entidad.setTirosLibres(rs.getInt("tiros_libres"));
+          entidad.setFaltas(rs.getInt("faltas"));
+          entidad.setPrecisionPasesPorcentaje(rs.getBigDecimal("precision_pases_porcentaje"));
+          entidad.setFueraDeJuego(rs.getInt("fuera_de_juego"));
+          entidad.setSalvadasPortero(rs.getInt("salvadas_portero"));
+          entidad.setEstado(rs.getBoolean("estado"));
+          entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+          entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+
+          Partido partido = new Partido();
+          partido.setIdPartido(rs.getInt("id_partido"));
+          partido.setFecha(rs.getDate("partido_fecha").toLocalDate());
+          partido.setFase(rs.getString("partido_fase"));
+          entidad.setPartido(partido);
+
+          Seleccion seleccion = new Seleccion();
+          seleccion.setIdSeleccion(rs.getInt("id_seleccion"));
+          seleccion.setNombre(rs.getString("nombre_seleccion"));
+          entidad.setSeleccion(seleccion);
+
+          lista.add(entidad);
+        }
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar estadisticas por partido: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener las estadisticas del partido.", e);
+    }
+
+    return lista;
+  }
+
   @Override
   public EstadisticasPartidoEquipo buscarPorId(Integer id) {
     String sql = "SELECT id_estadistica, id_partido, id_seleccion, posesion_porcentaje, " +

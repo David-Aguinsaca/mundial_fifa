@@ -9,10 +9,13 @@ import mundial_fifa.model.service.SeleccionService;
 import mundial_fifa.view.MainLayout;
 import mundial_fifa.view.component.ConfederacionPanel;
 import mundial_fifa.view.component.ContinentePanel;
+import mundial_fifa.view.component.DashboardPanel;
 import mundial_fifa.view.component.EstadisticasPartidoEquipoPanel;
 import mundial_fifa.view.component.MundialPanel;
 import mundial_fifa.view.component.PartidoPanel;
 import mundial_fifa.view.component.SeleccionPanel;
+
+// clase principal
 
 public class Main {
 
@@ -37,15 +40,24 @@ public class Main {
     MundialPanel moduloMundiales = new MundialPanel();
     MundialService mundialService = new MundialService();
 
+    DashboardPanel moduloDashboard = new DashboardPanel();
+
+    // inyeccion de dependencia
+    
     new ContinenteController(moduloContinente, continenteService);
     new ConfederacionController(moduloConfederacion, confederacionService, continenteService);
     new SeleccionController(moduloSelecciones, seleccionService, confederacionService);
     new PartidoController(moduloPartidos, partidoService, mundialService, seleccionService);
     new EstadisticasPartidoEquipoController(moduloEstadisticas, estadisticasService, partidoService, seleccionService);
     new MundialController(moduloMundiales, mundialService);
+    new DashboardController(moduloDashboard, mundialService, partidoService, estadisticasService);
 
-    ventanaPrincipal.setModuloPanel(moduloContinente);
+    ventanaPrincipal.setModuloPanel(moduloDashboard);
 
+    ventanaPrincipal.getBtnDashboard().addActionListener(e -> {
+        ventanaPrincipal.setModuloPanel(moduloDashboard);
+      });
+    
     ventanaPrincipal.getBtnContinentes().addActionListener(e -> {
       ventanaPrincipal.setModuloPanel(moduloContinente);
     });
@@ -69,6 +81,8 @@ public class Main {
     ventanaPrincipal.getBtnMundiales().addActionListener(e -> {
       ventanaPrincipal.setModuloPanel(moduloMundiales);
     });
+
+   
 
     ventanaPrincipal.setVisible(true);
   }

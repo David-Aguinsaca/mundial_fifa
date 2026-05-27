@@ -23,7 +23,8 @@ public class PartidoFormDialog extends JDialog {
 
     public PartidoFormDialog(Frame padre, Partido partidoAEditar,
                              DefaultComboBoxModel<?> mundialModelo,
-                             DefaultComboBoxModel<?> seleccionModelo) {
+                             DefaultComboBoxModel<?> seleccionLocalModelo,
+                             DefaultComboBoxModel<?> seleccionVisitanteModelo) {
         super(padre, (partidoAEditar == null) ? "Crear Nuevo Partido" : "Editar Partido", true);
         this.partidoOriginal = partidoAEditar;
 
@@ -63,14 +64,14 @@ public class PartidoFormDialog extends JDialog {
         panelForm.add(new JLabel("Selección Local:"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 3; gbc.weightx = 1.0;
-        cmbSeleccionLocal = new JComboBox<>(seleccionModelo);
+        cmbSeleccionLocal = new JComboBox<>(seleccionLocalModelo);
         panelForm.add(cmbSeleccionLocal, gbc);
 
         gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0;
         panelForm.add(new JLabel("Selección Visitante:"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4; gbc.weightx = 1.0;
-        cmbSeleccionVisitante = new JComboBox<>(seleccionModelo);
+        cmbSeleccionVisitante = new JComboBox<>(seleccionVisitanteModelo);
         panelForm.add(cmbSeleccionVisitante, gbc);
 
         gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0;

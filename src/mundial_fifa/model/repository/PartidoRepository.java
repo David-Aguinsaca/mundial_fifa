@@ -146,6 +146,65 @@ public class PartidoRepository implements GenericRepository<Partido, Integer> {
     }
   }
 
+  public List<Partido> listarPorMundial(Integer idMundial) {
+    String sql = "SELECT p.*, " +
+            "m.anio, m.pais_anfitrion, " +
+            "sl.nombre AS nombre_seleccion_local, " +
+            "sv.nombre AS nombre_seleccion_visitante " +
+            "FROM mundial_fifa.partido p " +
+            "INNER JOIN mundial_fifa.mundial m ON p.id_mundial = m.id_mundial " +
+            "INNER JOIN mundial_fifa.seleccion sl ON p.id_seleccion_local = sl.id_seleccion " +
+            "INNER JOIN mundial_fifa.seleccion sv ON p.id_seleccion_visitante = sv.id_seleccion " +
+            "WHERE p.id_mundial = ? " +
+            "ORDER BY p.fecha DESC";
+
+    List<Partido> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+      stmt.setInt(1, idMundial);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+          Partido entidad = new Partido();
+          entidad.setIdPartido(rs.getInt("id_partido"));
+          entidad.setIdMundial(rs.getInt("id_mundial"));
+          entidad.setFecha(rs.getDate("fecha").toLocalDate());
+          entidad.setFase(rs.getString("fase"));
+          entidad.setIdSeleccionLocal(rs.getInt("id_seleccion_local"));
+          entidad.setIdSeleccionVisitante(rs.getInt("id_seleccion_visitante"));
+          entidad.setGolesLocal(rs.getInt("goles_local"));
+          entidad.setGolesVisitante(rs.getInt("goles_visitante"));
+          entidad.setEstado(rs.getBoolean("estado"));
+          entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+          entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+
+          Mundial mundial = new Mundial();
+          mundial.setIdMundial(rs.getInt("id_mundial"));
+          mundial.setAnio(rs.getInt("anio"));
+          mundial.setPaisAnfitrion(rs.getString("pais_anfitrion"));
+          entidad.setMundial(mundial);
+
+          Seleccion seleccionLocal = new Seleccion();
+          seleccionLocal.setIdSeleccion(rs.getInt("id_seleccion_local"));
+          seleccionLocal.setNombre(rs.getString("nombre_seleccion_local"));
+          entidad.setSeleccionLocal(seleccionLocal);
+
+          Seleccion seleccionVisitante = new Seleccion();
+          seleccionVisitante.setIdSeleccion(rs.getInt("id_seleccion_visitante"));
+          seleccionVisitante.setNombre(rs.getString("nombre_seleccion_visitante"));
+          entidad.setSeleccionVisitante(seleccionVisitante);
+
+          lista.add(entidad);
+        }
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar partidos por mundial: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener la lista de partidos del mundial.", e);
+    }
+
+    return lista;
+  }
+
   @Override
   public Partido buscarPorId(Integer id) {
     String sql = "SELECT id_partido, id_mundial, fecha, fase, id_seleccion_local, id_seleccion_visitante, goles_local, goles_visitante, estado FROM mundial_fifa.partido WHERE id_partido = ?";

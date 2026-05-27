@@ -15,7 +15,8 @@ public class BotonSidebar extends JButton {
         setFont(new Font("Arial", Font.PLAIN, 14));
         setHorizontalAlignment(SwingConstants.LEFT);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
+
         // Efecto hover básico al pasar el ratón (opcional)
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

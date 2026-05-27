@@ -1,3 +1,5 @@
+-- crear un esquma mundial_fifa
+
 CREATE TABLE continente (
     id_continente SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL unique,

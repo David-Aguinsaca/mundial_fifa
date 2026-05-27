@@ -89,8 +89,9 @@ public class PartidoController {
 
     private void abrirFormularioCrear() {
         DefaultComboBoxModel<MundialItem> modeloMundiales = construirModeloMundiales();
-        DefaultComboBoxModel<SeleccionItem> modeloSelecciones = construirModeloSelecciones();
-        Partido nuevo = vista.mostrarModalFormulario(null, modeloMundiales, modeloSelecciones);
+        DefaultComboBoxModel<SeleccionItem> modeloSeleccionLocal = construirModeloSelecciones();
+        DefaultComboBoxModel<SeleccionItem> modeloSeleccionVisitante = construirModeloSelecciones();
+        Partido nuevo = vista.mostrarModalFormulario(null, modeloMundiales, modeloSeleccionLocal, modeloSeleccionVisitante);
 
         if (nuevo != null) {
             try {
@@ -114,8 +115,9 @@ public class PartidoController {
         try {
             Partido partidoAEditar = servicio.buscarPorId(idSeleccionado);
             DefaultComboBoxModel<MundialItem> modeloMundiales = construirModeloMundiales();
-            DefaultComboBoxModel<SeleccionItem> modeloSelecciones = construirModeloSelecciones();
-            Partido partidoModificado = vista.mostrarModalFormulario(partidoAEditar, modeloMundiales, modeloSelecciones);
+            DefaultComboBoxModel<SeleccionItem> modeloSeleccionLocal = construirModeloSelecciones();
+            DefaultComboBoxModel<SeleccionItem> modeloSeleccionVisitante = construirModeloSelecciones();
+            Partido partidoModificado = vista.mostrarModalFormulario(partidoAEditar, modeloMundiales, modeloSeleccionLocal, modeloSeleccionVisitante);
 
             if (partidoModificado != null) {
                 servicio.actualizarPartido(partidoModificado);

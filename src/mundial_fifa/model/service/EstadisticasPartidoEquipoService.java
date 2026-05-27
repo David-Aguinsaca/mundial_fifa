@@ -42,6 +42,18 @@ public class EstadisticasPartidoEquipoService {
         }
     }
 
+    public List<EstadisticasPartidoEquipo> obtenerPorPartido(Integer idPartido) {
+        if (idPartido == null || idPartido <= 0) {
+            throw new IllegalArgumentException("El ID del partido no es válido.");
+        }
+
+        try {
+            return ((EstadisticasPartidoEquipoRepository) repository).listarPorPartido(idPartido);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar las estadísticas del partido.", e);
+        }
+    }
+
     public List<EstadisticasPartidoEquipo> obtenerTodos() {
         try {
             return repository.listarTodos();
