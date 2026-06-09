@@ -145,4 +145,46 @@ public class SeleccionRepository implements GenericRepository<Seleccion, Integer
 
     return entidad;
   }
+
+
+  public List<Seleccion> listarTodosByEstado() {
+    String sql = "SELECT s.*, " +
+            "c.nombre AS nombre_confederacion, " +
+            "c.siglas AS siglas_confederacion " +
+            "FROM mundial_fifa.seleccion s " +
+            "INNER JOIN mundial_fifa.confederacion c ON s.id_confederacion = c.id_confederacion " +
+            "WHERE s.estado = true "+
+            "ORDER BY s.fecha_creacion DESC";
+
+    List<Seleccion> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery()) {
+
+      while (rs.next()) {
+        Seleccion entidad = new Seleccion();
+        entidad.setIdSeleccion(rs.getInt("id_seleccion"));
+        entidad.setNombre(rs.getString("nombre"));
+        entidad.setEstado(rs.getBoolean("estado"));
+        entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+        entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+        entidad.setIdConfederacion(rs.getInt("id_confederacion"));
+
+        Confederacion confederacion = new Confederacion();
+        confederacion.setIdConfederacion(rs.getInt("id_confederacion"));
+        confederacion.setNombre(rs.getString("nombre_confederacion"));
+        confederacion.setSiglas(rs.getString("siglas_confederacion"));
+
+        entidad.setConfederacion(confederacion);
+
+        lista.add(entidad);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar selecciones: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener la lista de selecciones.", e);
+    }
+
+    return lista;
+  }
+
 }

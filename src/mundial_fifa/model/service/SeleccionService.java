@@ -42,6 +42,14 @@ public class SeleccionService {
         }
     }
 
+    public List<Seleccion> listarTodosByEstado() {
+        try {
+            return ((SeleccionRepository) repository).listarTodosByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de selecciones en este momento.", e);
+        }
+    }
+
     public Seleccion buscarPorId(Integer id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("El ID proporcionado no es válido.");

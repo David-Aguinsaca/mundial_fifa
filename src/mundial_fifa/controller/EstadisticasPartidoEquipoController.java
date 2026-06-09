@@ -82,7 +82,7 @@ public class EstadisticasPartidoEquipoController {
     private DefaultComboBoxModel<SeleccionItem> construirModeloSelecciones() {
         DefaultComboBoxModel<SeleccionItem> modelo = new DefaultComboBoxModel<>();
         try {
-            List<Seleccion> selecciones = seleccionService.obtenerTodos();
+            List<Seleccion> selecciones = seleccionService.listarTodosByEstado();
             for (Seleccion s : selecciones) {
                 modelo.addElement(new SeleccionItem(s.getIdSeleccion(), s.getNombre()));
             }
