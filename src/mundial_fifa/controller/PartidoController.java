@@ -64,7 +64,7 @@ public class PartidoController {
     private DefaultComboBoxModel<MundialItem> construirModeloMundiales() {
         DefaultComboBoxModel<MundialItem> modelo = new DefaultComboBoxModel<>();
         try {
-            List<Mundial> mundiales = mundialService.obtenerTodos();
+            List<Mundial> mundiales = mundialService.obtenerByEstado();
             for (Mundial m : mundiales) {
                 modelo.addElement(new MundialItem(m.getIdMundial(), m.getAnio(), m.getPaisAnfitrion()));
             }
@@ -77,7 +77,7 @@ public class PartidoController {
     private DefaultComboBoxModel<SeleccionItem> construirModeloSelecciones() {
         DefaultComboBoxModel<SeleccionItem> modelo = new DefaultComboBoxModel<>();
         try {
-            List<Seleccion> selecciones = seleccionService.obtenerTodos();
+            List<Seleccion> selecciones = seleccionService.obtenerByEstado();
             for (Seleccion s : selecciones) {
                 modelo.addElement(new SeleccionItem(s.getIdSeleccion(), s.getNombre()));
             }

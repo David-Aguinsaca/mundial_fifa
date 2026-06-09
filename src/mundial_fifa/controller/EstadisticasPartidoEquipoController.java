@@ -69,7 +69,7 @@ public class EstadisticasPartidoEquipoController {
     private DefaultComboBoxModel<PartidoItem> construirModeloPartidos() {
         DefaultComboBoxModel<PartidoItem> modelo = new DefaultComboBoxModel<>();
         try {
-            List<Partido> partidos = partidoService.obtenerTodos();
+            List<Partido> partidos = partidoService.obtenerByEstado();
             for (Partido p : partidos) {
                 modelo.addElement(new PartidoItem(p.getIdPartido(), p.getFecha().toString(), p.getFase()));
             }

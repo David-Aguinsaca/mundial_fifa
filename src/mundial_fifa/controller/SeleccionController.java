@@ -53,7 +53,7 @@ public class SeleccionController {
     private DefaultComboBoxModel<ConfederacionItem> construirModeloConfederaciones() {
         DefaultComboBoxModel<ConfederacionItem> modelo = new DefaultComboBoxModel<>();
         try {
-            List<Confederacion> confederaciones = confederacionService.obtenerTodos();
+            List<Confederacion> confederaciones = confederacionService.obtenerByEstado();
             for (Confederacion c : confederaciones) {
                 modelo.addElement(new ConfederacionItem(c.getIdConfederacion(), c.getNombre(), c.getSiglas()));
             }

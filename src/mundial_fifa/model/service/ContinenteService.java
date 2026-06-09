@@ -53,9 +53,17 @@ public class ContinenteService {
     /**
      * Obtiene la lista completa de continentes para cargar en la tabla del ERP.
      */
+    public List<Continente> obtenerByEstado() {
+        try {
+            return repository.listarTodoByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de continentes activos en este momento.", e);
+        }
+    }
+
     public List<Continente> obtenerTodosConEstadoActivo() {
         try {
-            return ((ContinenteRepository) repository).listarTodosConEstadoActivo();
+            return repository.listarTodoByEstado();
         } catch (RuntimeException e) {
             throw new RuntimeException("No se pudo cargar la lista de continentes en este momento.", e);
         }

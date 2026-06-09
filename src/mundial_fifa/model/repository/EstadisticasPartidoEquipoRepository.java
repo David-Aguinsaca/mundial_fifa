@@ -154,6 +154,44 @@ public class EstadisticasPartidoEquipoRepository implements GenericRepository<Es
     }
   }
 
+  @Override
+  public List<EstadisticasPartidoEquipo> listarTodoByEstado() {
+    String sql = "SELECT * FROM mundial_fifa.estadistica_partido_equipo " +
+            "WHERE estado = true " +
+            "ORDER BY fecha_creacion DESC";
+
+    List<EstadisticasPartidoEquipo> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery()) {
+
+      while (rs.next()) {
+        EstadisticasPartidoEquipo entidad = new EstadisticasPartidoEquipo();
+        entidad.setIdEstadistica(rs.getInt("id_estadistica"));
+        entidad.setIdPartido(rs.getInt("id_partido"));
+        entidad.setIdSeleccion(rs.getInt("id_seleccion"));
+        entidad.setPosesionPorcentaje(rs.getBigDecimal("posesion_porcentaje"));
+        entidad.setTirosAlArco(rs.getInt("tiros_al_arco"));
+        entidad.setTirosEsquina(rs.getInt("tiros_esquina"));
+        entidad.setTirosLibres(rs.getInt("tiros_libres"));
+        entidad.setFaltas(rs.getInt("faltas"));
+        entidad.setPrecisionPasesPorcentaje(rs.getBigDecimal("precision_pases_porcentaje"));
+        entidad.setFueraDeJuego(rs.getInt("fuera_de_juego"));
+        entidad.setSalvadasPortero(rs.getInt("salvadas_portero"));
+        entidad.setEstado(rs.getBoolean("estado"));
+        entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+        entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+
+        lista.add(entidad);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar estadisticas activas: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener la lista de estadisticas activas.", e);
+    }
+
+    return lista;
+  }
+
   public List<EstadisticasPartidoEquipo> listarPorPartido(Integer idPartido) {
     String sql = "SELECT e.*, " +
             "p.fecha AS partido_fecha, p.fase AS partido_fase, " +

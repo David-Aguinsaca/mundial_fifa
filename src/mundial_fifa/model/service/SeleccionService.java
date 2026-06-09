@@ -44,9 +44,17 @@ public class SeleccionService {
 
     public List<Seleccion> listarTodosByEstado() {
         try {
-            return ((SeleccionRepository) repository).listarTodosByEstado();
+            return repository.listarTodoByEstado();
         } catch (RuntimeException e) {
             throw new RuntimeException("No se pudo cargar la lista de selecciones en este momento.", e);
+        }
+    }
+
+    public List<Seleccion> obtenerByEstado() {
+        try {
+            return repository.listarTodoByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de selecciones activas en este momento.", e);
         }
     }
 

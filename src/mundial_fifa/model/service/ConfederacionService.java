@@ -46,9 +46,9 @@ public class ConfederacionService {
         }
     }
 
-    public List<Confederacion> obtenerTodosConEstadoActivo() {
+    public List<Confederacion> obtenerByEstado() {
         try {
-            return ((ConfedaracionRepository) repository).listarTodosConEstadoActivo();
+            return repository.listarTodoByEstado();
         } catch (RuntimeException e) {
             throw new RuntimeException("No se pudo cargar la lista de confederaciones activas en este momento.", e);
         }

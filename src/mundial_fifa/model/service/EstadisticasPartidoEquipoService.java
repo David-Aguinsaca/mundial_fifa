@@ -54,6 +54,14 @@ public class EstadisticasPartidoEquipoService {
         }
     }
 
+    public List<EstadisticasPartidoEquipo> obtenerByEstado() {
+        try {
+            return repository.listarTodoByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de estadísticas activas en este momento.", e);
+        }
+    }
+
     public List<EstadisticasPartidoEquipo> obtenerTodos() {
         try {
             return repository.listarTodos();

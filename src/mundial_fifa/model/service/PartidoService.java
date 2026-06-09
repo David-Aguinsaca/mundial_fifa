@@ -58,6 +58,14 @@ public class PartidoService {
         }
     }
 
+    public List<Partido> obtenerByEstado() {
+        try {
+            return repository.listarTodoByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de partidos activos en este momento.", e);
+        }
+    }
+
     public List<Partido> obtenerTodos() {
         try {
             return repository.listarTodos();

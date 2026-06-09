@@ -146,6 +146,41 @@ public class PartidoRepository implements GenericRepository<Partido, Integer> {
     }
   }
 
+  @Override
+  public List<Partido> listarTodoByEstado() {
+    String sql = "SELECT * FROM mundial_fifa.partido " +
+            "WHERE estado = true " +
+            "ORDER BY fecha_creacion DESC";
+
+    List<Partido> lista = new ArrayList<>();
+
+    try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery()) {
+
+      while (rs.next()) {
+        Partido entidad = new Partido();
+        entidad.setIdPartido(rs.getInt("id_partido"));
+        entidad.setIdMundial(rs.getInt("id_mundial"));
+        entidad.setFecha(rs.getDate("fecha").toLocalDate());
+        entidad.setFase(rs.getString("fase"));
+        entidad.setIdSeleccionLocal(rs.getInt("id_seleccion_local"));
+        entidad.setIdSeleccionVisitante(rs.getInt("id_seleccion_visitante"));
+        entidad.setGolesLocal(rs.getInt("goles_local"));
+        entidad.setGolesVisitante(rs.getInt("goles_visitante"));
+        entidad.setEstado(rs.getBoolean("estado"));
+        entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
+        entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+
+        lista.add(entidad);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error SQL al listar partidos activos: " + e.getMessage());
+      throw new RuntimeException("No se pudo obtener la lista de partidos activos.", e);
+    }
+
+    return lista;
+  }
+
   public List<Partido> listarPorMundial(Integer idMundial) {
     String sql = "SELECT p.*, " +
             "m.anio, m.pais_anfitrion, " +

@@ -100,6 +100,30 @@ public class MundialRepository implements GenericRepository<Mundial, Integer> {
 	}
 
 	@Override
+	public List<Mundial> listarTodoByEstado() {
+		String sql = "SELECT * FROM mundial_fifa.mundial ORDER BY anio DESC";
+		List<Mundial> lista = new ArrayList<>();
+
+		try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Mundial entidad = new Mundial();
+				entidad.setIdMundial(rs.getInt("id_mundial"));
+				entidad.setAnio(rs.getInt("anio"));
+				entidad.setPaisAnfitrion(rs.getString("pais_anfitrion"));
+
+				lista.add(entidad);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error SQL al listar mundiales: " + e.getMessage());
+			throw new RuntimeException("No se pudo obtener la lista de mundiales.", e);
+		}
+
+		return lista;
+	}
+
+	@Override
 	public Mundial buscarPorId(Integer id) {
 		String sql = "SELECT id_mundial, anio, pais_anfitrion FROM mundial_fifa.mundial WHERE id_mundial = ?";
 		Mundial entidad = null;

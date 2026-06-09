@@ -147,12 +147,10 @@ public class SeleccionRepository implements GenericRepository<Seleccion, Integer
   }
 
 
-  public List<Seleccion> listarTodosByEstado() {
-    String sql = "SELECT s.*, " +
-            "c.nombre AS nombre_confederacion, " +
-            "c.siglas AS siglas_confederacion " +
+  @Override
+  public List<Seleccion> listarTodoByEstado() {
+    String sql = "SELECT s.* " +
             "FROM mundial_fifa.seleccion s " +
-            "INNER JOIN mundial_fifa.confederacion c ON s.id_confederacion = c.id_confederacion " +
             "WHERE s.estado = true "+
             "ORDER BY s.fecha_creacion DESC";
 
@@ -169,14 +167,6 @@ public class SeleccionRepository implements GenericRepository<Seleccion, Integer
         entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
         entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
         entidad.setIdConfederacion(rs.getInt("id_confederacion"));
-
-        Confederacion confederacion = new Confederacion();
-        confederacion.setIdConfederacion(rs.getInt("id_confederacion"));
-        confederacion.setNombre(rs.getString("nombre_confederacion"));
-        confederacion.setSiglas(rs.getString("siglas_confederacion"));
-
-        entidad.setConfederacion(confederacion);
-
         lista.add(entidad);
       }
     } catch (SQLException e) {

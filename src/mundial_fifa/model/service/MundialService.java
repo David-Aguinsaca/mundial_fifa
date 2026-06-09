@@ -34,6 +34,14 @@ public class MundialService {
         }
     }
 
+    public List<Mundial> obtenerByEstado() {
+        try {
+            return repository.listarTodoByEstado();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("No se pudo cargar la lista de mundiales activos en este momento.", e);
+        }
+    }
+
     public List<Mundial> obtenerTodos() {
         try {
             return repository.listarTodos();

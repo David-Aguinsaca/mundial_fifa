@@ -163,13 +163,11 @@ public class ConfedaracionRepository implements GenericRepository<Confederacion,
     return entidad;
   }
 
-  public List<Confederacion> listarTodosConEstadoActivo() {
-    String sql = "SELECT c.*, " +
-            "c2.nombre AS nombre_continente " +
-            "FROM mundial_fifa.confederacion c " +
-            "INNER JOIN mundial_fifa.continente c2 ON c.id_continente = c2.id_continente " +
-            "WHERE c.estado = true " +
-            "ORDER BY c.fecha_creacion DESC";
+  @Override
+  public List<Confederacion> listarTodoByEstado() {
+    String sql = "SELECT * FROM mundial_fifa.confederacion " +
+            "WHERE estado = true " +
+            "ORDER BY fecha_creacion DESC";
 
     List<Confederacion> lista = new ArrayList<>();
 
@@ -186,12 +184,6 @@ public class ConfedaracionRepository implements GenericRepository<Confederacion,
         entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
         entidad.setIdContinente(rs.getInt("id_continente"));
 
-        Continente continente = new Continente();
-        continente.setNombre(rs.getString("nombre_continente"));
-        continente.setIdContinente(rs.getInt("id_continente"));
-
-        entidad.setContinente(continente);
-
         lista.add(entidad);
       }
     } catch (SQLException e) {
@@ -201,4 +193,5 @@ public class ConfedaracionRepository implements GenericRepository<Confederacion,
 
     return lista;
   }
+
 }

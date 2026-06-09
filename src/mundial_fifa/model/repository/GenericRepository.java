@@ -17,4 +17,6 @@ public interface GenericRepository<T, ID> {
     void actualizar(T entidad);
     void eliminar(ID id);
     T buscarPorId(ID id);
+
+    List<T> listarTodoByEstado();
 }

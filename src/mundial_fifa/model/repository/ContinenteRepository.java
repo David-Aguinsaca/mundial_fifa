@@ -157,14 +157,15 @@ public class ContinenteRepository implements GenericRepository<Continente, Integ
     return entidad; // Devuelve el continente encontrado o null si no existía
   }
 
-  public List<Continente> listarTodosConEstadoActivo() {
+  @Override
+  public List<Continente> listarTodoByEstado() {
     String sql = "SELECT * FROM mundial_fifa.continente " +
-        "WHERE estado = true " +
-        "ORDER BY fecha_creacion DESC";
+            "WHERE estado = true " +
+            "ORDER BY fecha_creacion DESC";
     List<Continente> lista = new ArrayList<>();
 
     try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery()) { // Como no lleva '?', podemos ejecutar directamente
+        ResultSet rs = stmt.executeQuery()) {
 
       while (rs.next()) {
         Continente entidad = new Continente();
@@ -174,7 +175,7 @@ public class ContinenteRepository implements GenericRepository<Continente, Integ
         entidad.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
         entidad.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
 
-        lista.add(entidad); // Añadimos cada registro a la lista dinámica
+        lista.add(entidad);
       }
     } catch (SQLException e) {
       System.err.println("Error SQL al listar continentes: " + e.getMessage());
