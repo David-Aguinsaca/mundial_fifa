@@ -1,5 +1,7 @@
 package mundial_fifa.model.entity;
 
+// extends herencia
+// entity representa un objeto concepto del mundo real 
 public class Confederacion extends Base {
 
     private Integer idConfederacion;
@@ -8,10 +10,11 @@ public class Confederacion extends Base {
     private Integer idContinente;
     private Continente continente;
     
+    // constructor vacio instanciación de objetos sin parámetros 
     public Confederacion() {
     }
 
-
+    // constructor para inicializar la clases
     public Confederacion(Integer idConfederacion, String nombre, String siglas, Integer idContinente, Continente continente) {
         this.idConfederacion = idConfederacion;
         this.nombre = nombre;

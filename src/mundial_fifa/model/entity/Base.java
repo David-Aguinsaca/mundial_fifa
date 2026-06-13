@@ -2,6 +2,7 @@ package mundial_fifa.model.entity;
 
 import java.sql.Timestamp;
 
+
 public class Base {
   public Boolean estado;
   public Timestamp fechaCreacion;

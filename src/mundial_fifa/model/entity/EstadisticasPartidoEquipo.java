@@ -7,6 +7,7 @@ public class EstadisticasPartidoEquipo extends Base {
     private Integer idEstadistica;
     private Integer idPartido;
     private Integer idSeleccion;
+    //tipo de dato BigDecimal para tener mas precision
     private BigDecimal posesionPorcentaje;
     private int tirosAlArco;
     private int tirosEsquina;

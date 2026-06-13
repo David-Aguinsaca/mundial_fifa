@@ -8,7 +8,8 @@ operar con tipos de datos parametrizables, es decir, tipos que
 se especifican en el momento de la instanciación o llamada.  
 Esto permite escribir código flexible y reutilizable que funciona 
 con cualquier tipo de dato sin perder la seguridad de tipos en 
-tiempo de compilación.
+tiempo de compilación.diferentes tipos de datos sin necesidad de 
+reescribir el código para cada tipo específico
  */
 
 public interface GenericRepository<T, ID> {
@@ -17,6 +18,5 @@ public interface GenericRepository<T, ID> {
     void actualizar(T entidad);
     void eliminar(ID id);
     T buscarPorId(ID id);
-
     List<T> listarTodoByEstado();
 }

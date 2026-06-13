@@ -33,6 +33,9 @@ public class PartidoFormDialog extends JDialog {
         setResizable(false);
         setLayout(new BorderLayout());
 
+        // utilizada para definir las restricciones de posicionamiento 
+        // y tamaño de los componentes dentro de un contenedor que usa 
+        // GridBagLayout
         JPanel panelForm = new JPanel(new GridBagLayout());
         panelForm.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         GridBagConstraints gbc = new GridBagConstraints();

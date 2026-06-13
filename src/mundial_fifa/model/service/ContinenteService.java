@@ -17,7 +17,7 @@ public class ContinenteService {
         this.repository = new ContinenteRepository();
     }
 
-    /**
+    /**utilizada para definir las restricciones de posicionamiento y tamaño de los componentes dentro de un contenedor que usa GridBagLayout
      * Lógica para registrar un nuevo continente con validaciones previas.
      */
     public void registrarContinente(Continente continente) {

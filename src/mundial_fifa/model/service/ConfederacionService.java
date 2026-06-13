@@ -6,6 +6,8 @@ import mundial_fifa.model.entity.Confederacion;
 import mundial_fifa.model.repository.ConfedaracionRepository;
 import mundial_fifa.model.repository.GenericRepository;
 
+// Implementacion logica del negocio service
+
 public class ConfederacionService {
 
     private final GenericRepository<Confederacion, Integer> repository;

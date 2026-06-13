@@ -26,6 +26,9 @@ public class MainLayout extends JFrame {
         JPanel sidebar = new JPanel();
         sidebar.setBackground(new Color(43, 54, 66));
         sidebar.setPreferredSize(new Dimension(220, getHeight()));
+        
+        //GridLayout: organiza los componentes dentro de un contenedor en 
+        //una cuadrícula rectangular de filas y columnas
         sidebar.setLayout(new GridLayout(8, 1, 0, 5));
         sidebar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -54,7 +57,7 @@ public class MainLayout extends JFrame {
 
         add(sidebar, BorderLayout.WEST);
 
-        // 2. Panel Central Dinámico (Intercambiable)
+        // 2. Panel Central Dinámico (Intercambiable) Divide el contenedor (BorderLayout)
         panelCentralDinamico = new JPanel(new BorderLayout());
         add(panelCentralDinamico, BorderLayout.CENTER);
     }
